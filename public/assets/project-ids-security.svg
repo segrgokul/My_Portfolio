@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" fill="none">
+  <defs>
+    <radialGradient id="bgGlow" cx="62%" cy="42%" r="58%">
+      <stop offset="0%" stop-color="#f5a623" stop-opacity="0.22"/>
+      <stop offset="48%" stop-color="#10b981" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#0d0d0d" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#191919" stop-opacity="0.96"/>
+      <stop offset="100%" stop-color="#101010" stop-opacity="0.98"/>
+    </linearGradient>
+    <linearGradient id="goldLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f5a623" stop-opacity="0.05"/>
+      <stop offset="50%" stop-color="#f5a623" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0.45"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Base Canvas -->
+  <rect width="1280" height="720" fill="#0d0d0d"/>
+  <rect width="1280" height="720" fill="url(#grid)"/>
+  <rect width="1280" height="720" fill="url(#bgGlow)"/>
+
+  <!-- Radar Concentric Waves -->
+  <g transform="translate(810 305)">
+    <circle r="300" stroke="#f5a623" stroke-opacity="0.10" stroke-width="1.5" stroke-dasharray="6 8"/>
+    <circle r="220" stroke="#f5a623" stroke-opacity="0.18" stroke-width="1.5"/>
+    <circle r="145" stroke="#10b981" stroke-opacity="0.25" stroke-width="1.5" stroke-dasharray="4 6"/>
+    <circle r="78" stroke="#f5a623" stroke-opacity="0.42" stroke-width="2"/>
+    <path d="M 0 0 L 240 -175 A 295 295 0 0 1 285 75 Z" fill="#f5a623" fill-opacity="0.09"/>
+
+    <!-- Minimal Home Wireframe Inside Radar -->
+    <g stroke="#f5a623" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.82">
+      <path d="M -46 8 L 0 -32 L 46 8"/>
+      <path d="M -34 -2 L -34 38 L 34 38 L 34 -2"/>
+      <rect x="-11" y="13" width="22" height="25" rx="2" stroke="#10b981" stroke-width="2"/>
+    </g>
+
+    <!-- Intrusion Sensor Nodes -->
+    <circle cx="-175" cy="-115" r="7" fill="#f5a623"/>
+    <circle cx="-175" cy="-115" r="16" stroke="#f5a623" stroke-opacity="0.45" stroke-width="1.5"/>
+    <circle cx="198" cy="-88" r="6" fill="#10b981"/>
+    <circle cx="148" cy="145" r="7" fill="#f5a623"/>
+    <path d="M -175 -115 L -46 -12 M 198 -88 L 46 0 M 148 145 L 34 38" stroke="url(#goldLine)" stroke-width="1.5" stroke-dasharray="5 5"/>
+  </g>
+
+  <!-- Left Code & Telemetry Window (Python IDS) -->
+  <g transform="translate(88 92)">
+    <rect width="510" height="310" rx="18" fill="url(#cardGrad)" stroke="#2c2c2c" stroke-width="1.5"/>
+    <circle cx="26" cy="24" r="5" fill="#ef4444" fill-opacity="0.8"/>
+    <circle cx="44" cy="24" r="5" fill="#f5a623" fill-opacity="0.8"/>
+    <circle cx="62" cy="24" r="5" fill="#10b981" fill-opacity="0.8"/>
+    <text x="86" y="28" fill="#9ca3af" font-family="monospace" font-size="13">IDS(with twilio).py — Home Security Monitor</text>
+    <line x1="0" y1="48" x2="510" y2="48" stroke="#262626" stroke-width="1.5"/>
+
+    <g font-family="monospace" font-size="14">
+      <text x="24" y="84" fill="#f5a623">[IDS]</text><text x="74" y="84" fill="#e5e7eb"> Home Security Monitoring Active</text>
+      <text x="42" y="114" fill="#9ca3af">module  : IDS(with twilio).py</text>
+      <text x="42" y="144" fill="#10b981">channel : Email Alert System</text>
+      <text x="42" y="174" fill="#f5a623">notify  : Twilio Alert Dispatch</text>
+      <text x="42" y="204" fill="#9ca3af">config  : credentials.txt · testng.xml</text>
+    </g>
+
+    <!-- Waveform Trace -->
+    <rect x="24" y="232" width="462" height="54" rx="10" fill="#0c0c0c" stroke="#262626" stroke-width="1"/>
+    <path d="M 40 264 L 110 264 L 128 248 L 146 274 L 166 244 L 186 264 L 280 264 L 302 242 L 320 278 L 338 248 L 358 264 L 470 264" stroke="#f5a623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Right Floating Alert Card (Email + Twilio Alert) -->
+  <g transform="translate(768 426)">
+    <rect width="415" height="196" rx="18" fill="url(#cardGrad)" stroke="#f5a623" stroke-opacity="0.45" stroke-width="1.5"/>
+    <rect x="24" y="26" width="46" height="46" rx="12" fill="#f5a623" fill-opacity="0.14" stroke="#f5a623" stroke-opacity="0.5"/>
+    <!-- Envelope Icon -->
+    <g transform="translate(35 37)" stroke="#f5a623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="1" y="3" width="22" height="16" rx="2"/>
+      <path d="m23 5-11 7L1 5"/>
+    </g>
+    <text x="86" y="45" fill="#f5a623" font-family="monospace" font-size="12" font-weight="700">MAIL ALERT DISPATCHED</text>
+    <text x="86" y="66" fill="#ffffff" font-family="sans-serif" font-size="16" font-weight="700">Home Security IDS Triggered</text>
+
+    <rect x="24" y="96" width="367" height="32" rx="8" fill="#10b981" fill-opacity="0.12" stroke="#10b981" stroke-opacity="0.35"/>
+    <circle cx="42" cy="112" r="4.5" fill="#10b981"/>
+    <text x="58" y="117" fill="#d1fae5" font-family="monospace" font-size="12">Email Alert &amp; Twilio Trigger Ready</text>
+
+    <text x="24" y="164" fill="#9ca3af" font-family="monospace" font-size="12">credentials.txt · requirements.txt · testng.xml</text>
+  </g>
+</svg>

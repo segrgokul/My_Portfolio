@@ -1,0 +1,19 @@
+const fs = require('fs');
+
+// experience.html can simply serve the about page or redirect to about.html
+const html = `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content="0; url=./about.html" />
+    <title>Experience — Gokulraj S E</title>
+    <script>window.location.href = './about.html';</script>
+  </head>
+  <body style="background:#0a0a0a;color:#fff;display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;">
+    <p>Redirecting to <a href="./about.html" style="color:#f5a623;">Experience &amp; About</a>...</p>
+  </body>
+</html>`;
+
+fs.writeFileSync('experience.html', html, 'utf8');
+console.log('Created experience.html');
+

@@ -1,0 +1,776 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gokulraj S E — Software Test Engineer</title>
+    <meta name="description" content="Portfolio of Gokulraj S E, a Software Test Engineer specializing in Selenium WebDriver, Test Automation, API Testing, and AI-assisted QA." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body class="bg-dark text-white min-h-screen">
+    <div id="portfolio-loader" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden bg-[#0a0a0a] px-4 pointer-events-auto">
+  <div class="pointer-events-none absolute inset-0" style="background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(245,166,35,0.015) 2px, rgba(245,166,35,0.015) 4px)"></div>
+  <div class="relative flex items-center justify-center gap-6 md:gap-10">
+    <span class="block text-[clamp(64px,18vw,96px)] font-bold leading-none text-[#f5a623]" style="font-family: 'Cinzel', serif; text-shadow: 0 0 40px rgba(245,166,35,0.35);">G</span>
+    <div id="loader-pulse" class="relative flex items-center justify-center transition-opacity duration-300 opacity-0" style="width: clamp(24px, 6vw, 40px); height: clamp(24px, 6vw, 40px);">
+      <div class="absolute inset-0 rounded-full border border-[#f5a623] animate-ping opacity-60"></div>
+      <div class="h-2.5 w-2.5 rounded-full bg-[#f5a623] shadow-[0_0_12px_rgba(245,166,35,0.8)]"></div>
+    </div>
+    <span class="block text-[clamp(64px,18vw,96px)] font-bold leading-none text-[#f5a623]" style="font-family: 'Cinzel', serif; text-shadow: 0 0 40px rgba(245,166,35,0.35);">S</span>
+  </div>
+  <p id="loader-subtitle" class="mt-6 text-[11px] uppercase tracking-[4px] text-[rgba(245,166,35,0.7)] font-mono transition-opacity duration-300 opacity-0">
+    Gokulraj S E · Portfolio
+  </p>
+</div>
+    <nav class="hidden lg:flex fixed top-5 left-1/2 -translate-x-1/2 z-50 items-center gap-2 px-3 py-1.5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md shadow-lg"><a class="flex items-center justify-center rounded-lg transition-all duration-200 p-1.5 bg-gold text-dark font-semibold" href="./index.html" aria-label="Home"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></a><a class="flex items-center justify-center rounded-lg transition-all duration-200 px-4 py-1.5 text-sm font-medium text-gray-400 hover:text-white" href="./about.html">About</a><a class="flex items-center justify-center rounded-lg transition-all duration-200 px-4 py-1.5 text-sm font-medium text-gray-400 hover:text-white" href="./projects.html">Projects</a><a class="flex items-center justify-center rounded-lg transition-all duration-200 px-4 py-1.5 text-sm font-medium text-gray-400 hover:text-white" href="./skills.html">Skills</a><a class="flex items-center justify-center rounded-lg transition-all duration-200 px-4 py-1.5 text-sm font-medium text-gray-400 hover:text-white" href="./credentials.html">Certificates</a><a class="flex items-center justify-center rounded-lg transition-all duration-200 px-4 py-1.5 text-sm font-medium text-gray-400 hover:text-white" href="./contact.html">Contact</a></nav>
+
+    <div class="relative z-10 flex min-h-screen">
+      <div class="hidden shrink-0 p-8 pr-4 pt-8 lg:flex">
+        <aside id="desktop-sidebar" class="hidden lg:block shrink-0 sidebar-container" style="width: 88px; overflow: hidden; max-width: 90vw;">
+  <div class="sticky top-8 z-50">
+    <div class="bg-dark-100 border border-dark-300 rounded-2xl overflow-hidden shadow-lg">
+      <!-- Collapsed state (88px) -->
+      <div id="sidebar-collapsed-view" class="flex flex-col items-center py-5 px-3 gap-3 cursor-pointer group w-[88px]" title="Click to expand profile">
+        <div class="w-12 h-12 rounded-xl overflow-hidden border border-gold/40 flex items-center justify-center shrink-0 group-hover:border-gold transition-colors">
+          <img src="./assets/avatar.jpg" alt="Gokulraj S E" class="object-cover w-full h-full" onerror="this.onerror=null;this.src='./assets/project-1.png'"/>
+        </div>
+        <div style="writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); color: #f5a623; text-shadow: 0 0 8px rgba(245, 166, 35, 0.6);" class="text-[10px] uppercase tracking-[0.18em] transition-colors whitespace-nowrap">
+          Software Test Engineer
+        </div>
+        <div class="text-gold text-sm font-bold group-hover:translate-x-0.5 transition-transform">›</div>
+      </div>
+
+      <!-- Expanded state (280px) -->
+      <div id="sidebar-expanded-view" class="w-[280px] hidden">
+        <div id="sidebar-close-btn" class="flex items-center gap-3 p-5 cursor-pointer group border-b border-dark-300" title="Click to collapse">
+          <div class="w-12 h-12 rounded-xl overflow-hidden border border-gold/40 flex items-center justify-center shrink-0">
+            <img src="./assets/avatar.jpg" alt="Gokulraj S E" class="object-cover w-full h-full" onerror="this.onerror=null;this.src='./assets/project-1.png'"/>
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-white font-semibold text-sm">Gokulraj S E</p>
+            <span class="text-[10px] text-gold bg-dark-200 border border-gold/50 px-2 py-0.5 rounded-full mt-1 inline-block" style="text-shadow: 0 0 8px rgba(245, 166, 35, 0.6);">Software Test Engineer</span>
+          </div>
+          <div class="text-gold text-sm font-bold rotate-180 group-hover:text-gold/70 transition-colors">‹</div>
+        </div>
+
+        <div class="px-4 py-3 space-y-3">
+          <!-- EMAIL -->
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-dark-200 border border-dark-300 flex items-center justify-center text-gold shrink-0">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg>
+            </div>
+            <div class="min-w-0 flex-1">
+              <p class="text-[9px] text-gray-500 uppercase tracking-widest">EMAIL</p>
+              <div class="flex items-center gap-2 min-w-0">
+                <p class="text-xs text-white truncate">segrgokul@gmail.com</p>
+                <button type="button" class="copy-email-btn shrink-0 text-gray-500 hover:text-gold transition-colors relative cursor-pointer" data-copy-text="segrgokul@gmail.com" aria-label="Copy email address" title="Copy email">
+                  <svg class="icon-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+                  <svg class="icon-check hidden text-emerald-400" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span class="copy-toast hidden absolute -top-7 left-1/2 -translate-x-1/2 bg-dark-200 border border-gold/40 text-gold text-[10px] px-2 py-0.5 rounded shadow whitespace-nowrap">Copied!</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- PHONE -->
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-dark-200 border border-dark-300 flex items-center justify-center text-gold shrink-0">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            </div>
+            <div class="min-w-0 flex-1">
+              <p class="text-[9px] text-gray-500 uppercase tracking-widest">PHONE</p>
+              <div class="flex items-center gap-2 min-w-0">
+                <p class="text-xs text-white truncate">+91-7358072514</p>
+                <button type="button" class="copy-phone-btn shrink-0 text-gray-500 hover:text-gold transition-colors relative cursor-pointer" data-copy-text="+91-7358072514" aria-label="Copy phone number" title="Copy phone number">
+                  <svg class="icon-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+                  <svg class="icon-check hidden text-emerald-400" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span class="copy-toast hidden absolute -top-7 left-1/2 -translate-x-1/2 bg-dark-200 border border-gold/40 text-gold text-[10px] px-2 py-0.5 rounded shadow whitespace-nowrap">Copied!</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- LOCATION -->
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-dark-200 border border-dark-300 flex items-center justify-center text-gold shrink-0">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            </div>
+            <div class="min-w-0 flex-1">
+              <p class="text-[9px] text-gray-500 uppercase tracking-widest">LOCATION</p>
+              <p class="text-xs text-white truncate">Chennai, Tamil Nadu</p>
+            </div>
+          </div>
+
+          <!-- EXPERIENCE -->
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-dark-200 border border-dark-300 flex items-center justify-center text-gold shrink-0">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+            </div>
+            <div class="min-w-0 flex-1">
+              <p class="text-[9px] text-gray-500 uppercase tracking-widest">EXPERIENCE</p>
+              <p class="text-xs text-white truncate">3+ Years (QA & Automation)</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-dark-300 px-4 py-3 flex gap-2">
+          <a href="mailto:segrgokul@gmail.com" class="w-8 h-8 rounded-lg bg-dark-200 border border-dark-300 flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold transition-colors" title="Mail">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/gokulrajse/" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-dark-200 border border-dark-300 flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold transition-colors" title="LinkedIn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          </a>
+          <a href="https://github.com/segrgokul" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-dark-200 border border-dark-300 flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold transition-colors" title="GitHub">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+          </a>
+          <a href="tel:+917358072514" data-phone-display="+91-7358072514" class="w-8 h-8 rounded-lg bg-dark-200 border border-dark-300 flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold transition-colors" title="Phone: +91-7358072514" aria-label="Phone +91-7358072514">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>
+      </div>
+
+      <main class="min-w-0 flex-1 pt-0 lg:pt-6">
+        <div class="px-6 pb-24 lg:px-10 lg:pb-12 lg:pt-20">
+          <canvas id="bg-canvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+          <div class="relative z-10 flex flex-col gap-16">
+            <div class="lg:hidden mb-6 mt-10">
+  <div class="bg-dark-100 border border-dark-300 rounded-2xl overflow-hidden shadow-lg">
+    <div class="p-4 flex items-center gap-3 relative">
+      <div class="w-14 h-14 rounded-xl bg-dark-200 border border-gold/40 overflow-hidden shrink-0">
+        <img src="./assets/avatar.jpg" alt="Gokulraj S E" class="h-full w-full object-cover" onerror="this.onerror=null;this.src='./assets/project-1.png'"/>
+      </div>
+      <div>
+        <h2 class="font-semibold text-white">Gokulraj S E</h2>
+        <span class="text-xs text-gold bg-dark-200 border border-gold/50 px-2 py-0.5 rounded-full mt-0.5 inline-block" style="text-shadow:0 0 8px rgba(245, 166, 35, 0.6)">Software Test Engineer</span>
+      </div>
+      <button id="mobile-profile-toggle" class="absolute top-3 right-3 w-7 h-7 rounded-lg bg-dark-200 border border-dark-300 flex items-center justify-center text-gold cursor-pointer" aria-label="Toggle profile information">
+        <svg id="mobile-profile-chevron" class="transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
+      </button>
+    </div>
+    <div id="mobile-profile-details" class="hidden border-t border-dark-300">
+      <div class="px-4 py-4 space-y-3">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-dark-200 border border-dark-300 flex items-center justify-center text-gold shrink-0">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg>
+          </div>
+          <div class="min-w-0 flex-1">
+            <p class="text-[9px] text-gray-500 uppercase tracking-widest">EMAIL</p>
+            <div class="flex items-center gap-2">
+              <p class="text-sm text-white truncate">segrgokul@gmail.com</p>
+              <button type="button" class="copy-email-btn text-gray-500 hover:text-gold transition-colors relative cursor-pointer" data-copy-text="segrgokul@gmail.com" aria-label="Copy email address" title="Copy email">
+                <svg class="icon-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+                <svg class="icon-check hidden text-emerald-400" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span class="copy-toast hidden absolute -top-7 left-1/2 -translate-x-1/2 bg-dark-200 border border-gold/40 text-gold text-[10px] px-2 py-0.5 rounded shadow whitespace-nowrap">Copied!</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-dark-200 border border-dark-300 flex items-center justify-center text-gold shrink-0">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          </div>
+          <div class="min-w-0 flex-1">
+            <p class="text-[9px] text-gray-500 uppercase tracking-widest">PHONE</p>
+            <div class="flex items-center gap-2">
+              <p class="text-sm text-white truncate">+91-7358072514</p>
+              <button type="button" class="copy-phone-btn text-gray-500 hover:text-gold transition-colors relative cursor-pointer" data-copy-text="+91-7358072514" aria-label="Copy phone number" title="Copy phone number">
+                <svg class="icon-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+                <svg class="icon-check hidden text-emerald-400" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span class="copy-toast hidden absolute -top-7 left-1/2 -translate-x-1/2 bg-dark-200 border border-gold/40 text-gold text-[10px] px-2 py-0.5 rounded shadow whitespace-nowrap">Copied!</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-dark-200 border border-dark-300 flex items-center justify-center text-gold shrink-0">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          </div>
+          <div class="min-w-0 flex-1">
+            <p class="text-[9px] text-gray-500 uppercase tracking-widest">LOCATION</p>
+            <p class="text-sm text-white truncate">Chennai, Tamil Nadu</p>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-dark-300 px-4 py-3 flex gap-2">
+        <a href="mailto:segrgokul@gmail.com" class="w-8 h-8 rounded-lg bg-dark-200 border border-dark-300 flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/gokulrajse/" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-dark-200 border border-dark-300 flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+        </a>
+        <a href="https://github.com/segrgokul" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-dark-200 border border-dark-300 flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+        </a>
+        <a href="tel:+917358072514" data-phone-display="+91-7358072514" class="w-8 h-8 rounded-lg bg-dark-200 border border-dark-300 flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold" title="Phone: +91-7358072514" aria-label="Phone +91-7358072514">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+            <!-- Hero Section (Exactly matching Pic 2) -->
+            <div class="flex flex-col justify-center min-h-[40vh] gap-7 pt-4">
+              <p class="text-gold font-mono text-sm tracking-[0.2em] uppercase">HELLO! I'M</p>
+              <div>
+                <h1 class="text-5xl lg:text-7xl font-bold text-white leading-tight">Gokulraj S E</h1>
+                <h2 class="text-xl lg:text-2xl text-gray-400 mt-2 font-light">
+                  A passionate <span class="text-gold font-medium">Software Test</span> &amp; <span class="text-gold font-medium">Automation</span> Engineer
+                </h2>
+              </div>
+              <p class="text-gray-400 text-base lg:text-lg max-w-xl leading-relaxed">
+                Building reliable, release-ready web applications at the intersection of <span class="text-white font-medium">test automation</span> and <span class="text-white font-medium">quality engineering</span>.
+              </p>
+              <div>
+                <a class="inline-flex items-center gap-2 px-6 py-3 border border-dark-300 text-gray-300 rounded-xl hover:border-gold hover:text-gold transition-colors text-sm bg-dark-100/60 shadow-md" href="./assets/Gokulraj_S_E_Resume.pdf" download="Gokulraj_S_E_Resume.pdf" target="_blank" rel="noopener noreferrer">
+                  Resume
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M12 15V3"></path><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="m7 10 5 5 5-5"></path></svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Featured Work & Selected Projects 3-Card Carousel (Exactly matching Pic 2) -->
+            <div class="flex flex-col gap-8">
+              <div class="flex items-end justify-between">
+                <div>
+                  <p class="text-gold font-mono text-xs tracking-[0.2em] uppercase mb-2">FEATURED WORK</p>
+                  <h2 class="text-3xl font-bold text-white gold-underline pb-2">Selected Projects</h2>
+                </div>
+                <div class="hidden md:flex gap-2">
+                  <button id="carousel-prev" class="w-9 h-9 rounded-xl bg-dark-100 border border-dark-300 flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold/50 transition-colors cursor-pointer" aria-label="Previous Project">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"></path></svg>
+                  </button>
+                  <button id="carousel-next" class="w-9 h-9 rounded-xl bg-dark-100 border border-dark-300 flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold/50 transition-colors cursor-pointer" aria-label="Next Project">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"></path></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Desktop 3-Card Carousel -->
+              <div id="desktop-carousel" class="hidden md:grid grid-cols-3 gap-4 items-stretch">
+                <!-- Card 0 (Left - Inactive) -->
+                <div data-index="0" class="carousel-card carousel-card-inactive relative rounded-2xl overflow-hidden flex flex-col border border-dark-300 cursor-pointer">
+                  <div class="carousel-top-accent hidden absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-gold/40 via-gold to-gold/40 z-10"></div>
+                  <div class="absolute inset-0">
+                    <img src="./assets/project-selenium.png" alt="Selenium Automation" class="w-full h-full object-cover opacity-25" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-100 via-dark-100/70 to-transparent"></div>
+                  </div>
+                  <div class="relative z-10 flex flex-col justify-between h-full p-5 gap-3">
+                    <div class="flex items-start justify-between gap-2">
+                      <span class="text-[10px] font-mono text-gray-500">2025</span>
+                      <div class="flex flex-col items-end">
+                        <div class="flex items-center gap-1.5">
+                          <div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
+                          <span class="text-[10px] text-gray-400">Live</span>
+                        </div>
+                        <div class="text-[52px] font-bold leading-none select-none mt-1" style="color: rgba(255, 255, 255, 0.08);">01</div>
+                      </div>
+                    </div>
+                    <div class="flex flex-col gap-2.5">
+                      <h3 class="font-bold text-xl text-white leading-tight">Selenium WebDriver-Java Framework</h3>
+                      <p class="text-sm text-gray-400 leading-relaxed">Developed and maintained Selenium WebDriver-Java data-driven automation frameworks for regression and functional testing.</p>
+                      <div class="flex flex-wrap gap-1.5">
+                        <span class="px-2 py-0.5 text-[10px] font-mono bg-dark-300/80 border border-dark-300 text-gold/80 rounded-full">Selenium WebDriver</span>
+                        <span class="px-2 py-0.5 text-[10px] font-mono bg-dark-300/80 border border-dark-300 text-gold/80 rounded-full">Java</span>
+                        <span class="px-2 py-0.5 text-[10px] font-mono bg-dark-300/80 border border-dark-300 text-gold/80 rounded-full">TestNG</span>
+                        <span class="px-2 py-0.5 text-[10px] font-mono bg-dark-300/80 border border-dark-300 text-gold/80 rounded-full">POM</span>
+                      </div>
+                      <div class="carousel-actions hidden flex gap-2 pt-1">
+                        <a href="./projects.html" class="flex items-center gap-1.5 px-3 py-1.5 bg-dark-200/90 border border-dark-300 rounded-lg text-xs text-gray-300 hover:text-gold hover:border-gold/50 transition-colors">
+                          Details →
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 1 (Center - Active in Pic 2) -->
+                <div data-index="1" class="carousel-card carousel-card-active relative rounded-2xl overflow-hidden flex flex-col border border-gold cursor-pointer">
+                  <div class="carousel-top-accent absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-gold/40 via-gold to-gold/40 z-10"></div>
+                  <div class="absolute inset-0">
+                    <img src="./assets/project-ai-gemini.png" alt="AI Assisted Testing" class="w-full h-full object-cover opacity-25" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-100 via-dark-100/70 to-transparent"></div>
+                  </div>
+                  <div class="relative z-10 flex flex-col justify-between h-full p-5 gap-3">
+                    <div class="flex items-start justify-between gap-2">
+                      <span class="text-[10px] font-mono text-gray-500">2026</span>
+                      <div class="flex flex-col items-end">
+                        <div class="flex items-center gap-1.5">
+                          <div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
+                          <span class="text-[10px] text-gray-400">Live</span>
+                        </div>
+                        <div class="text-[52px] font-bold leading-none select-none mt-1" style="color: rgba(255, 255, 255, 0.08);">02</div>
+                      </div>
+                    </div>
+                    <div class="flex flex-col gap-2.5">
+                      <h3 class="font-bold text-xl text-white leading-tight">AI-Assisted Testing Suite</h3>
+                      <p class="text-sm text-gray-400 leading-relaxed">Utilized Google Gemini 3.5 to support AI-based automation tasks, including test data generation and log analysis.</p>
+                      <div class="flex flex-wrap gap-1.5">
+                        <span class="px-2 py-0.5 text-[10px] font-mono bg-dark-300/80 border border-dark-300 text-gold/80 rounded-full">Gemini 3.5</span>
+                        <span class="px-2 py-0.5 text-[10px] font-mono bg-dark-300/80 border border-dark-300 text-gold/80 rounded-full">AI Testing</span>
+                        <span class="px-2 py-0.5 text-[10px] font-mono bg-dark-300/80 border border-dark-300 text-gold/80 rounded-full">Log Analysis</span>
+                      </div>
+                      <div class="carousel-actions flex gap-2 pt-1">
+                        <a href="./projects.html" class="flex items-center gap-1.5 px-3 py-1.5 bg-dark-200/90 border border-dark-300 rounded-lg text-xs text-gray-300 hover:text-gold hover:border-gold/50 transition-colors">
+                          Details →
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 2 (Right - Inactive) -->
+                <div data-index="2" class="carousel-card carousel-card-inactive relative rounded-2xl overflow-hidden flex flex-col border border-dark-300 cursor-pointer">
+                  <div class="carousel-top-accent hidden absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-gold/40 via-gold to-gold/40 z-10"></div>
+                  <div class="absolute inset-0">
+                    <img src="./assets/project-api-postman.png" alt="PDF-to-Excel Validation" class="w-full h-full object-cover opacity-25" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-100 via-dark-100/70 to-transparent"></div>
+                  </div>
+                  <div class="relative z-10 flex flex-col justify-between h-full p-5 gap-3">
+                    <div class="flex items-start justify-between gap-2">
+                      <span class="text-[10px] font-mono text-gray-500">2024</span>
+                      <div class="flex flex-col items-end">
+                        <div class="flex items-center gap-1.5">
+                          <div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
+                          <span class="text-[10px] text-gray-400">Live</span>
+                        </div>
+                        <div class="text-[52px] font-bold leading-none select-none mt-1" style="color: rgba(255, 255, 255, 0.08);">03</div>
+                      </div>
+                    </div>
+                    <div class="flex flex-col gap-2.5">
+                      <h3 class="font-bold text-xl text-white leading-tight">PDF Data Extraction &amp; Postman API Suite</h3>
+                      <p class="text-sm text-gray-400 leading-relaxed">Automated extraction of data from PDFs into Excel for validation and reporting, and performed API testing using Postman.</p>
+                      <div class="flex flex-wrap gap-1.5">
+                        <span class="px-2 py-0.5 text-[10px] font-mono bg-dark-300/80 border border-dark-300 text-gold/80 rounded-full">Postman</span>
+                        <span class="px-2 py-0.5 text-[10px] font-mono bg-dark-300/80 border border-dark-300 text-gold/80 rounded-full">REST API</span>
+                        <span class="px-2 py-0.5 text-[10px] font-mono bg-dark-300/80 border border-dark-300 text-gold/80 rounded-full">Excel Automation</span>
+                      </div>
+                      <div class="carousel-actions hidden flex gap-2 pt-1">
+                        <a href="./projects.html" class="flex items-center gap-1.5 px-3 py-1.5 bg-dark-200/90 border border-dark-300 rounded-lg text-xs text-gray-300 hover:text-gold hover:border-gold/50 transition-colors">
+                          Details →
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Desktop Carousel Indicator Bars -->
+              <div class="hidden md:flex justify-center gap-2 mt-2">
+                <button data-dot="0" class="carousel-dot rounded-full transition-all duration-300 w-1.5 h-1.5 bg-dark-300 hover:bg-gold/40 cursor-pointer" aria-label="Go to slide 1"></button>
+                <button data-dot="1" class="carousel-dot rounded-full transition-all duration-300 w-6 h-1.5 bg-gold cursor-pointer" aria-label="Go to slide 2"></button>
+                <button data-dot="2" class="carousel-dot rounded-full transition-all duration-300 w-1.5 h-1.5 bg-dark-300 hover:bg-gold/40 cursor-pointer" aria-label="Go to slide 3"></button>
+              </div>
+
+              <!-- View all projects link -->
+              <div class="flex justify-center mt-1">
+                <a href="./projects.html" class="flex items-center gap-1.5 text-xs font-mono text-gray-500 hover:text-gold transition-colors">
+                  <span>View all projects</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"></path></svg>
+                </a>
+              </div>
+
+              <!-- Mobile Carousel View -->
+              <div class="md:hidden flex items-center gap-3">
+                <button id="mobile-prev" class="flex-shrink-0 w-10 h-10 rounded-xl bg-dark-100 border border-dark-300 flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold/50 transition-colors" aria-label="Previous Project">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"></path></svg>
+                </button>
+                <div id="mobile-card-container" class="flex-1 relative overflow-hidden rounded-2xl border border-gold shadow-lg shadow-gold/10" style="min-height: 360px;">
+                </div>
+                <button id="mobile-next" class="flex-shrink-0 w-10 h-10 rounded-xl bg-dark-100 border border-dark-300 flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold/50 transition-colors" aria-label="Next Project">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"></path></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- By The Numbers Summary -->
+            <div class="space-y-3 pt-4">
+              <div class="text-xs font-mono tracking-widest uppercase text-gold">By the numbers</div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div class="bg-dark-100 border border-dark-300 rounded-2xl p-5 flex flex-col items-center justify-center gap-1 hover:border-gold/40 transition-colors">
+                  <span class="text-3xl font-bold text-gold">3+</span>
+                  <span class="text-xs text-gray-500 text-center">Years QA Experience</span>
+                </div>
+                <div class="bg-dark-100 border border-dark-300 rounded-2xl p-5 flex flex-col items-center justify-center gap-1 hover:border-gold/40 transition-colors">
+                  <span class="text-3xl font-bold text-gold">7</span>
+                  <span class="text-xs text-gray-500 text-center">Featured Projects</span>
+                </div>
+                <div class="bg-dark-100 border border-dark-300 rounded-2xl p-5 flex flex-col items-center justify-center gap-1 hover:border-gold/40 transition-colors">
+                  <span class="text-3xl font-bold text-gold">8</span>
+                  <span class="text-xs text-gray-500 text-center">Certifications</span>
+                </div>
+                <div class="bg-dark-100 border border-dark-300 rounded-2xl p-5 flex flex-col items-center justify-center gap-1 hover:border-gold/40 transition-colors">
+                  <span class="text-3xl font-bold text-gold">18+</span>
+                  <span class="text-xs text-gray-500 text-center">Technologies</span>
+                </div>
+              </div>
+              <!-- Visitors Pill & Hover Tooltip (matches reference screenshot) -->
+<div class="pt-2 flex flex-wrap items-center justify-between gap-3">
+  <div id="visitor-badge-wrap" class="relative inline-flex self-start">
+    <button
+      id="visitor-badge-btn"
+      type="button"
+      aria-label="Open visitor geography"
+      aria-haspopup="dialog"
+      aria-controls="visitor-geography-modal"
+      class="relative inline-flex items-center gap-2 rounded-full border border-gold/25 bg-black/70 px-3 py-2 text-xs text-gray-200 shadow-[0_0_30px_rgba(245,166,35,0.12)] backdrop-blur-md transition-colors duration-300 hover:border-gold/50 cursor-pointer select-none"
+    >
+      <span class="flex h-7 w-7 items-center justify-center rounded-full bg-gold/10 text-gold">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+      </span>
+      <div class="flex flex-col text-left leading-tight">
+        <span class="uppercase tracking-[0.18em] text-[10px] text-gray-400">Visitors</span>
+        <span class="text-[10px] tracking-[0.18em] text-gray-500 sm:hidden">Tap for geography</span>
+        <span class="hidden text-[10px] tracking-[0.18em] text-gray-500 sm:inline">Click for geography</span>
+      </div>
+    </button>
+
+    <!-- Hover Tooltip: TOTAL VISITORS -->
+    <div
+      id="visitor-tooltip"
+      role="status"
+      aria-live="polite"
+      class="pointer-events-none absolute bottom-full left-0 z-20 mb-2 w-max max-w-[240px] rounded-xl border border-gold/20 bg-[#101010] px-3 py-2 text-[11px] text-gray-300 shadow-xl opacity-0 translate-y-1.5 transition-all duration-200"
+    >
+      <div class="uppercase tracking-[0.18em] text-[10px] text-gray-500">Total visitors</div>
+      <div id="visitor-tooltip-count" class="mt-1 font-mono text-sm text-white">Loading</div>
+      <div id="visitor-tooltip-india" class="mt-0.5 text-[10px] text-gold/80 hidden"></div>
+    </div>
+  </div>
+</div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="pt-8 pb-4 border-t border-dark-300 text-center text-xs text-gray-500 font-mono">
+              © 2026 Gokulraj S E · Software Test Engineer — Manual &amp; Automation Testing
+            </footer>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <nav class="lg:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-1rem)] max-w-md bg-dark-100/95 backdrop-blur-md border border-dark-300 rounded-2xl shadow-2xl shadow-black/40"><div class="flex items-center justify-between px-2 py-2"><a class="relative flex-1 flex flex-col items-center justify-center px-0 py-1 gap-0.5 group rounded-xl" href="./index.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide transition-colors text-gold"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+      <span class="text-[9px] text-gold">Home</span>
+    </a><a class="relative flex-1 flex flex-col items-center justify-center px-0 py-1 gap-0.5 group rounded-xl" href="./about.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide transition-colors text-gray-500"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      <span class="text-[9px] text-gray-500">About</span>
+    </a><a class="relative flex-1 flex flex-col items-center justify-center px-0 py-1 gap-0.5 group rounded-xl" href="./projects.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide transition-colors text-gray-500"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"></path></svg>
+      <span class="text-[9px] text-gray-500">Projects</span>
+    </a><a class="relative flex-1 flex flex-col items-center justify-center px-0 py-1 gap-0.5 group rounded-xl" href="./skills.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide transition-colors text-gray-500"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg>
+      <span class="text-[9px] text-gray-500">Skills</span>
+    </a><a class="relative flex-1 flex flex-col items-center justify-center px-0 py-1 gap-0.5 group rounded-xl" href="./credentials.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide transition-colors text-gray-500"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path><circle cx="12" cy="8" r="6"></circle></svg>
+      <span class="text-[9px] text-gray-500">Certificates</span>
+    </a><a class="relative flex-1 flex flex-col items-center justify-center px-0 py-1 gap-0.5 group rounded-xl" href="./contact.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide transition-colors text-gray-500"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg>
+      <span class="text-[9px] text-gray-500">Contact</span>
+    </a></div></nav>
+    <!-- Terminal Floating Action Button -->
+<div class="fixed bottom-40 right-8 z-[35] group/terminal lg:bottom-24">
+  <button id="terminal-fab" class="w-14 h-14 rounded-full bg-gradient-to-br from-[#f5a623]/20 to-[#f5a623]/10 border-2 border-[#f5a623]/60 flex items-center justify-center text-[#f5a623] hover:border-[#f5a623] hover:from-[#f5a623]/30 hover:to-[#f5a623]/20 transition-all shadow-lg shadow-[#f5a623]/20 cursor-pointer" aria-label="Open QA Terminal">
+    <span class="font-mono text-sm font-bold">&gt;_</span>
+  </button>
+  <div class="absolute right-16 top-1/2 -translate-y-1/2 bg-dark-200 border border-[#f5a623]/30 rounded-lg px-3 py-1.5 whitespace-nowrap opacity-0 group-hover/terminal:opacity-100 transition-opacity duration-200 pointer-events-none shadow-xl shadow-black/20 hidden lg:block">
+    <p class="text-xs text-gold font-mono">Open QA Terminal</p>
+  </div>
+</div>
+
+<!-- Connect / Binoculars Floating Action Button -->
+<div class="fixed bottom-24 right-8 z-40 lg:bottom-8 group/connect">
+  <a href="./contact.html" class="w-14 h-14 rounded-full bg-gradient-to-br from-[#f5a623]/20 to-[#f5a623]/10 border-2 border-[#f5a623]/60 flex items-center justify-center text-[#f5a623] hover:border-[#f5a623] hover:from-[#f5a623]/30 hover:to-[#f5a623]/20 transition-all shadow-lg shadow-[#f5a623]/20 cursor-pointer" aria-label="Want to connect?">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-binoculars"><path d="M10 10h4"></path><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"></path><path d="M20 21a2 2 0 0 0 2-2v-3.851c0-1.39-2-2.962-2-4.829V8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v11a2 2 0 0 0 2 2z"></path><path d="M 22 16 L 2 16"></path><path d="M4 21a2 2 0 0 1-2-2v-3.851c0-1.39 2-2.962 2-4.829V8a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v11a2 2 0 0 1-2 2z"></path><path d="M9 7V4a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1v3"></path></svg>
+  </a>
+  <div class="absolute right-16 top-1/2 -translate-y-1/2 bg-dark-200 border border-[#f5a623]/30 rounded-lg px-3 py-1.5 whitespace-nowrap opacity-0 group-hover/connect:opacity-100 transition-opacity duration-200 pointer-events-none shadow-xl shadow-black/20 hidden lg:block">
+    <p class="text-xs text-gold font-mono">Want to connect?</p>
+  </div>
+</div>
+
+<!-- Terminal Backdrop & Drawer -->
+<div id="terminal-backdrop" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden"></div>
+<div id="terminal-drawer" class="fixed bottom-0 left-0 right-0 z-50 max-w-2xl mx-auto rounded-t-2xl bg-dark-100 border-t border-x border-gold/40 shadow-2xl terminal-closed p-4 md:p-6" style="height: 480px; max-height: 85vh;">
+  <div class="flex items-center justify-between pb-3 border-b border-dark-300">
+    <div class="flex items-center gap-2">
+      <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+      <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+      <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+      <span class="text-xs font-mono text-gray-400 ml-2">gokulraj@qa-engine:~</span>
+    </div>
+    <button id="terminal-close-btn" class="text-gray-400 hover:text-white transition-colors cursor-pointer" aria-label="Close Terminal">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+  </div>
+  <div id="terminal-output" class="h-[360px] overflow-y-auto py-3 font-mono text-xs space-y-1.5">
+    <div class="text-gray-400">Initializing Gokulraj.QA v1.0...</div>
+    <div class="text-gray-400">Loading automation test suites... ████████████ done</div>
+    <div class="text-emerald-400">Connected. Type '<span class="text-gold font-bold">help</span>' for a list of commands.</div>
+  </div>
+  <form id="terminal-form" class="flex items-center gap-2 pt-2 border-t border-dark-300">
+    <span class="text-gold font-mono text-xs font-bold">&gt;</span>
+    <input id="terminal-input" type="text" autocomplete="off" spellcheck="false" class="flex-1 bg-transparent border-none outline-none font-mono text-xs text-white placeholder-gray-600" placeholder="Type a command (e.g. whoami, skills, experience, projects)..." />
+  </form>
+</div>
+
+<!-- Direct Phone Number Modal (shown on desktop click instead of triggering broken tel: handler) -->
+<div id="phone-contact-modal" class="fixed inset-0 flex items-center justify-center p-4 opacity-0 pointer-events-none" aria-hidden="true" style="z-index: 9999;">
+  <button id="phone-modal-backdrop" type="button" aria-label="Close phone dialog" class="absolute inset-0 bg-black/70 backdrop-blur-sm cursor-pointer"></button>
+  <div id="phone-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="phone-modal-title" class="relative z-10 w-full max-w-md rounded-2xl border border-dark-300 bg-dark-100 p-6 shadow-2xl">
+    <div class="flex items-start justify-between gap-3">
+      <div>
+        <p class="text-[10px] font-mono uppercase tracking-[0.25em] text-gold">Direct Contact</p>
+        <h3 id="phone-modal-title" class="text-lg font-semibold text-white mt-1">Gokulraj S E · Phone</h3>
+      </div>
+      <button id="phone-modal-close" type="button" aria-label="Close phone dialog" class="w-8 h-8 rounded-lg bg-dark-200 border border-dark-300 flex items-center justify-center text-gray-400 hover:text-white hover:border-gold/50 transition-colors cursor-pointer">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+      </button>
+    </div>
+    <div class="mt-4 rounded-xl border border-dark-300 bg-dark-200 p-4 text-center">
+      <p class="text-[10px] font-mono uppercase tracking-widest text-gray-400">Mobile / WhatsApp</p>
+      <p id="phone-modal-number" class="mt-1.5 text-2xl font-mono font-bold text-white tracking-wider select-all">+91-7358072514</p>
+      <p id="phone-modal-copy-status" class="mt-2 text-xs font-mono text-emerald-400 hidden"></p>
+    </div>
+    <div class="mt-4 flex flex-wrap gap-3">
+      <button id="phone-modal-copy-btn" type="button" class="flex-1 rounded-xl bg-gold px-4 py-2.5 text-sm font-semibold text-dark hover:opacity-90 transition-opacity flex items-center justify-center gap-2 cursor-pointer">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+        <span id="phone-modal-copy-label">Copy Number</span>
+      </button>
+      <a id="phone-modal-dial-link" href="tel:+917358072514" data-tel-direct="true" class="flex-1 rounded-xl border border-dark-300 bg-dark-200 px-4 py-2.5 text-sm font-medium text-gray-200 hover:border-gold hover:text-gold transition-colors flex items-center justify-center gap-2">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        Open Dialer
+      </a>
+    </div>
+  </div>
+</div>
+    <!-- Visitor Geography Modal (mounted outside <main> stacking context) -->
+<div
+  id="visitor-geography-modal"
+  class="fixed inset-0 hidden items-center justify-center px-3 py-4 opacity-0 pointer-events-none"
+  style="z-index: 9999;"
+>
+  <button
+    id="visitor-modal-backdrop"
+    type="button"
+    aria-label="Close visitor geography"
+    class="absolute inset-0 bg-black/70 backdrop-blur-sm cursor-pointer"
+  ></button>
+
+  <div
+    id="visitor-geography-dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="visitor-geography-title"
+    class="relative z-10 w-full max-w-[780px] overflow-hidden rounded-[18px] border border-white/10 bg-[#0a0a0a]/95 shadow-2xl shadow-black/45 backdrop-blur-xl"
+    style="max-width: 780px; max-height: calc(100vh - 3.5rem);"
+  >
+    <!-- Header -->
+    <div class="flex items-start justify-between gap-2 border-b border-white/8 px-3 py-2.5 sm:px-5 sm:py-3.5">
+      <div>
+        <div class="text-[10px] uppercase tracking-[0.3em] text-[#f5a623]/75">Visitor geography</div>
+        <h2 id="visitor-geography-title" class="mt-1 text-[20px] font-semibold text-white sm:text-[26px]">Top countries &amp; India</h2>
+      </div>
+      <button
+        id="visitor-modal-close"
+        type="button"
+        aria-label="Close modal"
+        class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-300 transition-colors hover:border-white/20 hover:text-white sm:h-9 sm:w-9 cursor-pointer"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div id="visitor-modal-body" class="grid max-h-[calc(100vh-9.5rem)] gap-3 overflow-y-auto p-3 sm:p-4 lg:grid-cols-[0.88fr_1.12fr]">
+      <!-- Left Overview Card -->
+      <section class="min-w-0 rounded-[16px] border border-white/8 bg-white/4 p-3 flex flex-col gap-3">
+        <div class="flex items-end justify-between gap-2">
+          <div>
+            <div class="text-[10px] uppercase tracking-[0.28em] text-slate-500">Total visitors</div>
+            <div id="visitor-modal-total" class="mt-1.5 text-[30px] font-semibold leading-none text-white sm:text-[38px]">0</div>
+          </div>
+          <div class="rounded-xl border border-gold/20 bg-gold/10 px-2.5 py-1.5 text-right">
+            <div class="text-[9px] uppercase tracking-[0.2em] text-gold font-mono">India Share</div>
+            <div id="visitor-india-total" class="text-sm font-semibold text-white font-mono">0</div>
+          </div>
+        </div>
+
+        <!-- Detected Session Pill -->
+        <div id="visitor-current-location" class="flex items-center justify-between gap-2 rounded-xl border border-white/8 bg-white/5 px-2.5 py-2 text-[11px] text-slate-300">
+          <div class="flex items-center gap-2 min-w-0">
+            <span class="h-2 w-2 shrink-0 rounded-full bg-gold animate-pulse"></span>
+            <span id="visitor-current-location-text" class="truncate">Detecting location...</span>
+          </div>
+          <button
+            id="visitor-gps-btn"
+            type="button"
+            title="Use browser GPS to detect your exact Indian district"
+            class="shrink-0 rounded-md border border-gold/25 bg-gold/10 px-2 py-0.5 text-[10px] font-mono text-gold hover:border-gold/50 transition-colors cursor-pointer"
+          >
+            Pinpoint GPS
+          </button>
+        </div>
+
+        <!-- Map Frame -->
+        <div class="rounded-[16px] border border-white/8 bg-[#08111d] p-2.5">
+          <div class="flex items-center justify-between gap-2 text-[10px] uppercase tracking-[0.28em] text-slate-500">
+            <span id="visitor-map-label">World map</span>
+            <button id="visitor-map-mode-btn" type="button" class="text-[11px] font-mono text-gold hover:underline cursor-pointer" style="letter-spacing: 0.02em; text-transform: none;">Focus India →</button>
+          </div>
+          <div class="mt-2 overflow-hidden rounded-[14px] border border-white/6 bg-[#09101a] relative">
+            <!-- World Stylized Dot Map -->
+            <svg id="visitor-svg-world" viewBox="0 0 360 180" class="w-full" style="height: 170px;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="World visitor map">
+              <defs>
+                <radialGradient id="worldGlow" cx="70%" cy="48%" r="45%">
+                  <stop offset="0%" stop-color="#f5a623" stop-opacity="0.16" />
+                  <stop offset="100%" stop-color="#09101a" stop-opacity="0" />
+                </radialGradient>
+                <pattern id="worldGridDots" width="8" height="8" patternUnits="userSpaceOnUse">
+                  <circle cx="2" cy="2" r="0.7" fill="rgba(148,163,184,0.16)" />
+                </pattern>
+              </defs>
+              <rect width="360" height="180" fill="#09101a" />
+              <rect width="360" height="180" fill="url(#worldGridDots)" />
+              <rect width="360" height="180" fill="url(#worldGlow)" />
+              <!-- Continents -->
+              <g fill="#132238" stroke="rgba(148,163,184,0.22)" stroke-width="0.6" stroke-linejoin="round">
+                <!-- North America + Greenland -->
+                <path d="M22,42 L44,30 L76,24 L106,30 L114,44 L98,58 L92,72 L76,82 L70,94 L58,86 L48,72 L30,58 Z" />
+                <path d="M116,14 L140,12 L146,24 L126,30 L114,24 Z" />
+                <!-- South America -->
+                <path d="M78,98 L104,98 L120,114 L114,136 L102,162 L92,160 L88,136 L76,112 Z" />
+                <!-- Europe -->
+                <path d="M160,34 L178,24 L202,26 L208,40 L198,54 L182,58 L164,56 L156,46 Z" />
+                <!-- UK -->
+                <path d="M150,36 L156,34 L157,44 L149,44 Z" />
+                <!-- Africa -->
+                <path d="M158,64 L196,62 L212,78 L218,96 L204,124 L188,148 L174,132 L168,104 L154,84 Z" />
+                <!-- Eurasia / Asia -->
+                <path d="M204,28 L254,22 L306,26 L326,42 L316,60 L298,74 L286,92 L268,94 L250,108 L240,96 L232,78 L214,76 L202,54 Z" />
+                <!-- Japan + SE Asia Isles -->
+                <path d="M312,50 L318,46 L320,62 L312,64 Z" />
+                <path d="M272,102 L292,104 L298,112 L274,110 Z" />
+                <!-- Australia -->
+                <path d="M286,120 L318,118 L330,136 L316,152 L292,148 L280,134 Z" />
+              </g>
+              <!-- Highlight India Subcontinent -->
+              <path d="M242,74 L256,74 L264,86 L251,108 L242,88 Z" fill="rgba(245,166,35,0.28)" stroke="#f5a623" stroke-width="0.9" />
+              <g id="visitor-world-pins"></g>
+            </svg>
+
+            <!-- India States Stylized Map (shown in India mode) -->
+            <svg id="visitor-svg-india" viewBox="0 0 260 220" class="hidden w-full" style="height: 170px;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="India state visitor map">
+              <defs>
+                <radialGradient id="indiaGlow" cx="50%" cy="55%" r="50%">
+                  <stop offset="0%" stop-color="#f5a623" stop-opacity="0.18" />
+                  <stop offset="100%" stop-color="#09101a" stop-opacity="0" />
+                </radialGradient>
+                <pattern id="indiaGridDots" width="8" height="8" patternUnits="userSpaceOnUse">
+                  <circle cx="2" cy="2" r="0.7" fill="rgba(245,166,35,0.14)" />
+                </pattern>
+              </defs>
+              <rect width="260" height="220" fill="#09101a" />
+              <rect width="260" height="220" fill="url(#indiaGridDots)" />
+              <rect width="260" height="220" fill="url(#indiaGlow)" />
+              <!-- Recognizable India Silhouette (Kashmir, Gujarat, Peninsula, NE) -->
+              <path
+                d="M108,22 L120,16 L136,22 L144,32 L134,42 L130,52 L140,58 L156,64 L174,68 L184,66 L192,72 L204,64 L216,60 L226,68 L220,82 L214,96 L206,102 L202,90 L194,88 L188,80 L180,80 L176,94 L168,108 L156,120 L144,136 L134,156 L128,176 L118,200 L110,196 L102,172 L96,144 L90,120 L80,114 L64,116 L54,106 L62,94 L56,88 L72,82 L80,68 L94,54 L98,40 Z"
+                fill="#132238"
+                stroke="rgba(245,166,35,0.55)"
+                stroke-width="1.2"
+                stroke-linejoin="round"
+              />
+              <!-- Andaman & Lakshadweep hints -->
+              <path d="M216,158 L220,168 L218,178" stroke="rgba(245,166,35,0.4)" stroke-width="2" stroke-linecap="round" fill="none" />
+              <circle cx="86" cy="186" r="1.5" fill="rgba(245,166,35,0.5)" />
+              <g id="visitor-india-pins"></g>
+            </svg>
+          </div>
+        </div>
+
+        <p id="visitor-tracking-source" class="text-[10px] text-slate-500 leading-relaxed">
+          Live GeoIP location detection active.
+        </p>
+      </section>
+
+      <!-- Right Distribution Card -->
+      <section class="min-w-0 rounded-[16px] border border-white/8 bg-white/4 p-3 flex flex-col">
+        <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-white/8">
+          <div>
+            <div class="text-[10px] uppercase tracking-[0.28em] text-slate-500">Distribution</div>
+            <p id="visitor-dist-subtitle" class="mt-0.5 text-[12px] text-slate-400">Countries &amp; India state breakdown</p>
+          </div>
+          <div class="inline-flex rounded-xl border border-white/8 bg-black/50 p-1 gap-1" role="tablist" aria-label="Geography view">
+            <button id="geo-tab-countries" type="button" role="tab" aria-selected="true" class="geo-tab-btn is-active rounded-lg px-2.5 py-1 text-[11px] transition-colors cursor-pointer">
+              Countries
+            </button>
+            <button id="geo-tab-india" type="button" role="tab" aria-selected="false" class="geo-tab-btn rounded-lg px-2.5 py-1 text-[11px] text-gray-300 hover:text-white transition-colors cursor-pointer">
+              India · States
+            </button>
+          </div>
+        </div>
+
+        <!-- View 1: Countries + Inline Active India States & Districts Summary -->
+        <div id="geo-panel-countries" class="mt-2.5 space-y-3">
+          <div id="geo-country-list" class="space-y-2">
+            <div class="rounded-[14px] border border-white/8 bg-white/5 px-3 py-3 text-sm text-slate-400">
+              Loading visitor geography...
+            </div>
+          </div>
+
+          <!-- Inline India State -> District Preview -->
+          <div id="geo-india-quick-wrap" class="pt-2 border-t border-white/8 space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] uppercase tracking-[0.22em] text-[#f5a623]/80 font-mono">India · State &amp; District Counts</span>
+              <button id="geo-open-all-states-btn" type="button" class="text-[11px] text-gold hover:underline cursor-pointer">
+                All States &amp; Districts →
+              </button>
+            </div>
+            <div id="geo-india-quick-list" class="space-y-2"></div>
+          </div>
+        </div>
+
+        <!-- View 2: Full India State-wise -> District-wise Breakdown -->
+        <div id="geo-panel-india" class="hidden mt-2.5 space-y-2.5">
+          <div class="flex flex-col sm:flex-row gap-2">
+            <input
+              id="geo-india-search"
+              type="search"
+              placeholder="Search state or district..."
+              class="flex-1 rounded-xl border border-white/10 bg-black/60 px-3 py-1.5 text-xs text-white placeholder-gray-500 focus:border-gold focus:outline-none"
+            />
+            <button
+              id="geo-india-scope-btn"
+              type="button"
+              class="rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] text-gray-300 hover:border-gold/40 hover:text-white transition-colors cursor-pointer shrink-0"
+            >
+              Show All 36 States
+            </button>
+          </div>
+
+          <div id="geo-india-state-list" class="space-y-2 overflow-y-auto pr-1" style="max-height: 290px;"></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+    <script src="./main.js"></script>
+  </body>
+</html>
