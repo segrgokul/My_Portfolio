@@ -1008,15 +1008,21 @@ function initCarousel() {
 // 11. VISITOR GEOGRAPHY & INDIA STATE -> DISTRICT TRACKING
 // ==========================================
 function initVisitorGeography() {
-  const STORAGE_KEY = 'gokulraj_geo_local_v4';
-  const SESSION_GEO_KEY = 'gokulraj_geo_session_v4';
-  const SESSION_VISIT_KEY = 'gokulraj_geo_visit_v4';
+  const STORAGE_KEY = 'gokulraj_geo_local_v5';
+  const SESSION_GEO_KEY = 'gokulraj_geo_session_v5';
+  const SESSION_VISIT_KEY = 'gokulraj_geo_visit_v5';
   const ABACUS_BASE = 'https://abacus.jasoncameron.dev';
-  const ABACUS_NS = 'gokulrajse_live_9f4k2x';
+  const ABACUS_NS = 'gokulrajse_live_v5_8k2p';
   const IS_LOCAL_PREVIEW =
     window.location.protocol === 'file:' ||
     /^(localhost|127\.0\.0\.1|0\.0\.0\.0)$/i.test(window.location.hostname || '');
+  const IS_AUTOMATED_BOT =
+    Boolean(navigator.webdriver) ||
+    /bot|crawl|spider|slurp|headless|lighthouse|pagespeed|prerender|preview|phantom|selenium|playwright|puppeteer/i.test(
+      navigator.userAgent || ''
+    );
   const USE_REMOTE_SYNC = !IS_LOCAL_PREVIEW;
+  const SHOULD_RECORD_REMOTE_HIT = USE_REMOTE_SYNC && !IS_AUTOMATED_BOT;
   const PRESET_COUNTRIES = ['IN', 'US', 'GB', 'AE', 'SG', 'CA', 'AU', 'DE'];
   const TOP_INDIA_STATE_CODES = ['TN', 'KA', 'MH', 'DL', 'TS', 'KL', 'AP', 'UP', 'GJ'];
 
@@ -1246,12 +1252,16 @@ function initVisitorGeography() {
   const abacusCache = new Map();
   let abacusRateLimitedUntil = 0;
 
-  async function fetchAbacusHit(key) {
+  async function fetchAbacusHit(key, attempt = 0) {
     if (!key) return null;
     try {
       const res = await fetch(`${ABACUS_BASE}/hit/${ABACUS_NS}/${key}`, { cache: 'no-store' });
       if (res.status === 429) {
         abacusRateLimitedUntil = Date.now() + 8000;
+        if (attempt === 0) {
+          await new Promise((r) => setTimeout(r, 1200));
+          return fetchAbacusHit(key, 1);
+        }
         return null;
       }
       if (!res.ok) return null;
@@ -1338,17 +1348,55 @@ function initVisitorGeography() {
     }
   }
 
+  function reconcileStoreHierarchy(store) {
+    if (!store || typeof store !== 'object') return store;
+    store.countries = store.countries && typeof store.countries === 'object' ? store.countries : {};
+    store.indiaStates = store.indiaStates && typeof store.indiaStates === 'object' ? store.indiaStates : {};
+
+    let indiaStateSum = 0;
+    Object.keys(store.indiaStates).forEach((stName) => {
+      const stObj = store.indiaStates[stName];
+      if (!stObj || typeof stObj !== 'object') return;
+      const dists = stObj.districts && typeof stObj.districts === 'object' ? stObj.districts : {};
+      let distSum = 0;
+      Object.values(dists).forEach((v) => {
+        const n = Number(v) || 0;
+        if (n > 0) distSum += n;
+      });
+      const reconciledStateCount = Math.max(Number(stObj.count) || 0, distSum);
+      stObj.count = reconciledStateCount;
+      indiaStateSum += reconciledStateCount;
+    });
+
+    if (indiaStateSum > 0) {
+      const prevIndia = (store.countries.IN && Number(store.countries.IN.count)) || 0;
+      store.countries.IN = {
+        code: 'IN',
+        name: (store.countries.IN && store.countries.IN.name) || getCountryName('IN'),
+        count: Math.max(prevIndia, indiaStateSum),
+      };
+    }
+
+    let countrySum = 0;
+    Object.values(store.countries).forEach((c) => {
+      const n = Number(c && c.count) || 0;
+      if (n > 0) countrySum += n;
+    });
+    store.totalUniqueVisitors = Math.max(Number(store.totalUniqueVisitors) || 0, countrySum);
+    return store;
+  }
+
   function readLocalStore() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw);
         if (parsed && typeof parsed === 'object') {
-          return {
+          return reconcileStoreHierarchy({
             totalUniqueVisitors: Number(parsed.totalUniqueVisitors) || 0,
             countries: parsed.countries && typeof parsed.countries === 'object' ? parsed.countries : {},
             indiaStates: parsed.indiaStates && typeof parsed.indiaStates === 'object' ? parsed.indiaStates : {},
-          };
+          });
         }
       }
     } catch (_) {
@@ -1363,6 +1411,7 @@ function initVisitorGeography() {
 
   function writeLocalStore(store) {
     try {
+      reconcileStoreHierarchy(store);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
     } catch (_) {
       // ignore storage quota / privacy mode
@@ -1414,6 +1463,7 @@ function initVisitorGeography() {
         store.indiaStates[stateName].districts[districtName] = counts.district;
       }
     }
+    reconcileStoreHierarchy(store);
   }
 
   function recordVisitLocally(geo, allowUpdateExisting) {
@@ -2057,6 +2107,7 @@ function initVisitorGeography() {
   }
 
   function renderAllUI() {
+    reconcileStoreHierarchy(state.store);
     const total = state.store.totalUniqueVisitors || 0;
     const indiaCount = getIndiaVisitorTotal();
     const formattedTotal = formatNumber(total);
@@ -2370,7 +2421,7 @@ function initVisitorGeography() {
           res.currentGeo.stateName,
           res.currentGeo.districtName
         );
-        if (USE_REMOTE_SYNC && (res.changeKind === 'new' || res.changeKind === 'relocated')) {
+        if (SHOULD_RECORD_REMOTE_HIT && (res.changeKind === 'new' || res.changeKind === 'relocated')) {
           const prevKeys = res.prevSession
             ? getGeoCounterKeys(res.prevSession.countryCode, res.prevSession.stateName, res.prevSession.districtName)
             : {};
@@ -2404,6 +2455,19 @@ function initVisitorGeography() {
 
   // Record visit asynchronously (updates per visit & syncs with serverless Abacus counters — no custom backend needed)
   (async function trackVisit() {
+    if (IS_AUTOMATED_BOT) {
+      if (USE_REMOTE_SYNC) {
+        const totalVal = await fetchAbacusInfo('total');
+        if (typeof totalVal === 'number') {
+          state.store.totalUniqueVisitors = totalVal;
+          state.apiSynced = true;
+          writeLocalStore(state.store);
+        }
+      }
+      renderAllUI();
+      return;
+    }
+
     const geo = await fetchLiveGeo();
     if (geo) {
       const res = recordVisitLocally(geo, false);
@@ -2417,7 +2481,7 @@ function initVisitorGeography() {
         res.currentGeo.districtName
       );
       if (USE_REMOTE_SYNC) {
-        const reader = res.changeKind === 'new' ? fetchAbacusHit : fetchAbacusInfo;
+        const reader = SHOULD_RECORD_REMOTE_HIT && res.changeKind === 'new' ? fetchAbacusHit : fetchAbacusInfo;
         const [totalVal, countryVal, stateVal, districtVal] = await Promise.all([
           reader('total'),
           reader(countryKey),
