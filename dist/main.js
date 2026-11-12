@@ -1008,9 +1008,14 @@ function initCarousel() {
 // 11. VISITOR GEOGRAPHY & INDIA STATE -> DISTRICT TRACKING
 // ==========================================
 function initVisitorGeography() {
-  const STORAGE_KEY = 'gokulraj_geo_visitors_v2';
-  const VISITOR_ID_KEY = 'gokulraj_geo_visitor_id';
-  const SESSION_GEO_KEY = 'gokulraj_geo_session_v2';
+  const STORAGE_KEY = 'gokulraj_geo_visitors_v3';
+  const LEGACY_STORAGE_KEY = 'gokulraj_geo_visitors_v2';
+  const SESSION_GEO_KEY = 'gokulraj_geo_session_v3';
+  const SESSION_VISIT_KEY = 'gokulraj_geo_visit_v3';
+  const ABACUS_BASE = 'https://abacus.jasoncameron.dev';
+  const ABACUS_NS = 'gokulrajse-portfolio-v1';
+  const PRESET_COUNTRIES = ['IN', 'US', 'GB', 'AE', 'SG', 'CA', 'AU', 'DE'];
+  const TOP_INDIA_STATE_CODES = ['TN', 'KA', 'MH', 'DL', 'TS', 'KL', 'AP', 'UP', 'GJ'];
 
   const COUNTRY_GRADIENTS = {
     IN: 'linear-gradient(90deg, #ff9933 0%, #ffd08a 52%, #138808 100%)',
@@ -1203,22 +1208,136 @@ function initVisitorGeography() {
     return clean;
   }
 
-  function getOrCreateVisitorId() {
-    try {
-      let id = localStorage.getItem(VISITOR_ID_KEY);
-      if (!id) {
-        id = 'v_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
-        localStorage.setItem(VISITOR_ID_KEY, id);
+  function toCounterSlug(str) {
+    return String(str || '')
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '_')
+      .replace(/^_+|_+$/g, '')
+      .slice(0, 48);
+  }
+
+  function getStateMetaByName(stateName) {
+    return INDIA_STATES.find((s) => s.name === stateName) || null;
+  }
+
+  function getGeoCounterKeys(countryCode, stateName, districtName) {
+    const ccSlug = toCounterSlug(countryCode || 'zz');
+    const countryKey = 'c_' + (ccSlug || 'zz');
+    let stateKey = null;
+    let districtKey = null;
+    if (countryCode === 'IN' && stateName) {
+      const meta = getStateMetaByName(stateName);
+      const stSlug = meta ? meta.code.toLowerCase() : toCounterSlug(stateName);
+      if (stSlug) {
+        stateKey = 's_' + stSlug;
+        const dSlug = toCounterSlug(districtName);
+        if (dSlug) {
+          districtKey = 'd_' + stSlug + '_' + dSlug;
+        }
       }
-      return id;
+    }
+    return { countryKey, stateKey, districtKey };
+  }
+
+  const abacusCache = new Map();
+  let abacusRateLimitedUntil = 0;
+
+  async function fetchAbacusHit(key) {
+    if (!key) return null;
+    try {
+      const res = await fetch(`${ABACUS_BASE}/hit/${ABACUS_NS}/${key}`, { cache: 'no-store' });
+      if (res.status === 429) {
+        abacusRateLimitedUntil = Date.now() + 8000;
+        return null;
+      }
+      if (!res.ok) return null;
+      const d = await res.json();
+      if (d && typeof d.value === 'number') {
+        abacusCache.set(key, { value: d.value, ts: Date.now() });
+        return d.value;
+      }
+      return null;
     } catch (_) {
-      return 'v_session';
+      return null;
+    }
+  }
+
+  async function fetchAbacusInfo(key) {
+    if (!key) return null;
+    const cached = abacusCache.get(key);
+    if (cached && Date.now() - cached.ts < 45000) return cached.value;
+    if (Date.now() < abacusRateLimitedUntil) return null;
+    try {
+      const res = await fetch(`${ABACUS_BASE}/info/${ABACUS_NS}/${key}`, { cache: 'no-store' });
+      if (res.status === 429) {
+        abacusRateLimitedUntil = Date.now() + 8000;
+        return null;
+      }
+      if (!res.ok) return null;
+      const d = await res.json();
+      const val = !d || d.exists === false || typeof d.value !== 'number' || d.value < 0 ? 0 : d.value;
+      abacusCache.set(key, { value: val, ts: Date.now() });
+      return val;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  async function fetchAbacusInfoBatch(keys, onBatchItem) {
+    const uniqueKeys = Array.from(new Set((keys || []).filter(Boolean)));
+    const pending = [];
+    uniqueKeys.forEach((k) => {
+      const cached = abacusCache.get(k);
+      if (cached && Date.now() - cached.ts < 45000) {
+        onBatchItem(k, cached.value);
+      } else {
+        pending.push(k);
+      }
+    });
+
+    const chunkSize = 5;
+    for (let i = 0; i < pending.length; i += chunkSize) {
+      if (Date.now() < abacusRateLimitedUntil) break;
+      if (i > 0) {
+        await new Promise((r) => setTimeout(r, 1500));
+      }
+      const slice = pending.slice(i, i + chunkSize);
+      const results = await Promise.all(
+        slice.map(async (k) => ({ key: k, value: await fetchAbacusInfo(k) }))
+      );
+      results.forEach(({ key, value }) => {
+        if (typeof value === 'number') {
+          onBatchItem(key, value);
+        }
+      });
+    }
+  }
+
+  function readSessionVisit() {
+    try {
+      const raw = sessionStorage.getItem(SESSION_VISIT_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object' && parsed.countryCode) return parsed;
+      }
+    } catch (_) {
+      // ignore sessionStorage errors
+    }
+    return null;
+  }
+
+  function writeSessionVisit(visitObj) {
+    try {
+      sessionStorage.setItem(SESSION_VISIT_KEY, JSON.stringify(visitObj));
+    } catch (_) {
+      // ignore sessionStorage errors
     }
   }
 
   function readLocalStore() {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
+      const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw);
         if (parsed && typeof parsed === 'object') {
@@ -1226,10 +1345,6 @@ function initVisitorGeography() {
             totalUniqueVisitors: Number(parsed.totalUniqueVisitors) || 0,
             countries: parsed.countries && typeof parsed.countries === 'object' ? parsed.countries : {},
             indiaStates: parsed.indiaStates && typeof parsed.indiaStates === 'object' ? parsed.indiaStates : {},
-            recordedVisitorIds:
-              parsed.recordedVisitorIds && typeof parsed.recordedVisitorIds === 'object'
-                ? parsed.recordedVisitorIds
-                : {},
           };
         }
       }
@@ -1240,7 +1355,6 @@ function initVisitorGeography() {
       totalUniqueVisitors: 0,
       countries: {},
       indiaStates: {},
-      recordedVisitorIds: {},
     };
   }
 
@@ -1252,86 +1366,89 @@ function initVisitorGeography() {
     }
   }
 
-  function recordVisitLocally(visitorId, geo, allowUpdateExisting) {
+  function adjustLocalStoreCount(store, loc, delta) {
+    const { countryCode, countryName, stateName, districtName } = loc;
+    if (!countryCode) return;
+
+    if (!store.countries[countryCode]) {
+      store.countries[countryCode] = { code: countryCode, name: countryName || getCountryName(countryCode), count: 0 };
+    }
+    store.countries[countryCode].count = Math.max(0, (Number(store.countries[countryCode].count) || 0) + delta);
+    if (store.countries[countryCode].count === 0) {
+      delete store.countries[countryCode];
+    }
+
+    if (countryCode === 'IN' && stateName) {
+      if (!store.indiaStates[stateName]) {
+        store.indiaStates[stateName] = { count: 0, districts: {} };
+      }
+      const stObj = store.indiaStates[stateName];
+      stObj.count = Math.max(0, (Number(stObj.count) || 0) + delta);
+      if (districtName) {
+        stObj.districts[districtName] = Math.max(0, (Number(stObj.districts[districtName]) || 0) + delta);
+        if (stObj.districts[districtName] === 0) delete stObj.districts[districtName];
+      }
+      if (stObj.count === 0) delete store.indiaStates[stateName];
+    }
+  }
+
+  function applyRemoteLocationValue(store, loc, counts) {
+    const { countryCode, countryName, stateName, districtName } = loc;
+    if (typeof counts.total === 'number' && counts.total >= 0) {
+      store.totalUniqueVisitors = counts.total;
+    }
+    if (typeof counts.country === 'number' && counts.country > 0 && countryCode) {
+      store.countries[countryCode] = {
+        code: countryCode,
+        name: countryName || getCountryName(countryCode),
+        count: counts.country,
+      };
+    }
+    if (countryCode === 'IN' && stateName && typeof counts.state === 'number' && counts.state > 0) {
+      const prevDists = (store.indiaStates[stateName] && store.indiaStates[stateName].districts) || {};
+      store.indiaStates[stateName] = { count: counts.state, districts: { ...prevDists } };
+      if (districtName && typeof counts.district === 'number' && counts.district > 0) {
+        store.indiaStates[stateName].districts[districtName] = counts.district;
+      }
+    }
+  }
+
+  function recordVisitLocally(geo, allowUpdateExisting) {
     const store = readLocalStore();
     const countryCode = normalizeCountryCode(geo.countryCode);
     const countryName = getCountryName(countryCode, geo.countryName);
     const isIndia = countryCode === 'IN';
     const stateName = isIndia ? normalizeIndiaState(geo.region) : null;
     const districtName = isIndia ? normalizeIndiaDistrict(geo.city, stateName) : null;
-    const prev = store.recordedVisitorIds[visitorId];
+    const prevSession = readSessionVisit();
 
-    if (prev && allowUpdateExisting) {
+    let changeKind = 'none'; // 'new' | 'relocated' | 'none'
+
+    if (!prevSession) {
+      store.totalUniqueVisitors += 1;
+      adjustLocalStoreCount(store, { countryCode, countryName, stateName, districtName }, 1);
+      writeLocalStore(store);
+      writeSessionVisit({ countryCode, countryName, stateName, districtName, ts: Date.now() });
+      changeKind = 'new';
+    } else if (allowUpdateExisting) {
       const sameLocation =
-        prev.countryCode === countryCode &&
-        prev.state === stateName &&
-        prev.district === districtName;
+        prevSession.countryCode === countryCode &&
+        prevSession.stateName === stateName &&
+        prevSession.districtName === districtName;
 
       if (!sameLocation) {
-        // Decrement previous recorded location cleanly before moving visitor to updated location
-        if (store.countries[prev.countryCode]) {
-          store.countries[prev.countryCode].count = Math.max(0, store.countries[prev.countryCode].count - 1);
-          if (store.countries[prev.countryCode].count === 0) delete store.countries[prev.countryCode];
-        }
-        if (prev.countryCode === 'IN' && prev.state && store.indiaStates[prev.state]) {
-          const stObj = store.indiaStates[prev.state];
-          stObj.count = Math.max(0, stObj.count - 1);
-          if (prev.district && stObj.districts && stObj.districts[prev.district]) {
-            stObj.districts[prev.district] = Math.max(0, stObj.districts[prev.district] - 1);
-            if (stObj.districts[prev.district] === 0) delete stObj.districts[prev.district];
-          }
-          if (stObj.count === 0) delete store.indiaStates[prev.state];
-        }
-
-        if (!store.countries[countryCode]) {
-          store.countries[countryCode] = { code: countryCode, name: countryName, count: 0 };
-        }
-        store.countries[countryCode].count += 1;
-
-        if (isIndia && stateName) {
-          if (!store.indiaStates[stateName]) {
-            store.indiaStates[stateName] = { count: 0, districts: {} };
-          }
-          store.indiaStates[stateName].count += 1;
-          store.indiaStates[stateName].districts[districtName] =
-            (store.indiaStates[stateName].districts[districtName] || 0) + 1;
-        }
-
-        store.recordedVisitorIds[visitorId] = {
-          countryCode,
-          state: stateName,
-          district: districtName,
-          ts: Date.now(),
-        };
+        adjustLocalStoreCount(store, prevSession, -1);
+        adjustLocalStoreCount(store, { countryCode, countryName, stateName, districtName }, 1);
         writeLocalStore(store);
+        writeSessionVisit({ countryCode, countryName, stateName, districtName, ts: Date.now() });
+        changeKind = 'relocated';
       }
-    } else if (!prev) {
-      store.totalUniqueVisitors += 1;
-      if (!store.countries[countryCode]) {
-        store.countries[countryCode] = { code: countryCode, name: countryName, count: 0 };
-      }
-      store.countries[countryCode].count += 1;
-
-      if (isIndia && stateName) {
-        if (!store.indiaStates[stateName]) {
-          store.indiaStates[stateName] = { count: 0, districts: {} };
-        }
-        store.indiaStates[stateName].count += 1;
-        store.indiaStates[stateName].districts[districtName] =
-          (store.indiaStates[stateName].districts[districtName] || 0) + 1;
-      }
-
-      store.recordedVisitorIds[visitorId] = {
-        countryCode,
-        state: stateName,
-        district: districtName,
-        ts: Date.now(),
-      };
-      writeLocalStore(store);
     }
 
     return {
       store,
+      changeKind,
+      prevSession,
       currentGeo: { countryCode, countryName, stateName, districtName, source: geo.source || 'geoip' },
     };
   }
@@ -1975,8 +2092,8 @@ function initVisitorGeography() {
 
     if (trackingSourceEl) {
       trackingSourceEl.textContent = state.apiSynced
-        ? 'Synced with portfolio backend visitor analytics.'
-        : 'Multi-GeoIP consensus · Local browser preview (connect a hosted API to share counts across all visitors).';
+        ? 'Live GeoIP + serverless counter sync · Country, state & district counts update per visit without a backend.'
+        : 'Live GeoIP · Local browser count (updates per visit; connect network for global sync).';
     }
 
     if (indiaScopeBtn) {
@@ -1988,6 +2105,138 @@ function initVisitorGeography() {
     renderIndiaStatesList();
   }
 
+  let lastSummarySyncTs = 0;
+  const syncedStateDistricts = new Set();
+  let fullStatesSynced = false;
+
+  async function syncStateDistricts(stateName) {
+    if (!stateName || syncedStateDistricts.has(stateName)) return;
+    syncedStateDistricts.add(stateName);
+
+    const meta = getStateMetaByName(stateName);
+    const stSlug = meta ? meta.code.toLowerCase() : toCounterSlug(stateName);
+    if (!stSlug) return;
+
+    const existingDists = Object.keys((state.store.indiaStates[stateName] && state.store.indiaStates[stateName].districts) || {});
+    const allDistNames = Array.from(new Set([...(meta ? meta.districts : []), ...existingDists]));
+    if (state.currentGeo && state.currentGeo.stateName === stateName && state.currentGeo.districtName) {
+      allDistNames.unshift(state.currentGeo.districtName);
+    }
+
+    const keyToDist = new Map();
+    allDistNames.forEach((dName) => {
+      const slug = toCounterSlug(dName);
+      if (slug) {
+        const key = 'd_' + stSlug + '_' + slug;
+        if (!keyToDist.has(key)) keyToDist.set(key, dName);
+      }
+    });
+
+    await fetchAbacusInfoBatch(Array.from(keyToDist.keys()), (key, val) => {
+      const distName = keyToDist.get(key);
+      if (!distName) return;
+      if (!state.store.indiaStates[stateName]) {
+        if (val <= 0) return;
+        state.store.indiaStates[stateName] = { count: val, districts: {} };
+      }
+      if (val > 0 || state.store.indiaStates[stateName].districts[distName]) {
+        if (val > 0) {
+          state.store.indiaStates[stateName].districts[distName] = val;
+        }
+      }
+    });
+
+    writeLocalStore(state.store);
+    renderAllUI();
+  }
+
+  async function syncAllIndiaStates() {
+    if (fullStatesSynced) return;
+    fullStatesSynced = true;
+
+    const keyToState = new Map();
+    INDIA_STATES.forEach((s) => {
+      if (!TOP_INDIA_STATE_CODES.includes(s.code)) {
+        keyToState.set('s_' + s.code.toLowerCase(), s.name);
+      }
+    });
+
+    await fetchAbacusInfoBatch(Array.from(keyToState.keys()), (key, val) => {
+      const stName = keyToState.get(key);
+      if (!stName || val <= 0) return;
+      const prevDists = (state.store.indiaStates[stName] && state.store.indiaStates[stName].districts) || {};
+      state.store.indiaStates[stName] = { count: val, districts: { ...prevDists } };
+    });
+
+    writeLocalStore(state.store);
+    renderAllUI();
+  }
+
+  async function syncGlobalSummary(force) {
+    if (!force && Date.now() - lastSummarySyncTs < 20000) return;
+    lastSummarySyncTs = Date.now();
+
+    const countryCodes = new Set([
+      ...PRESET_COUNTRIES,
+      ...(state.currentGeo && state.currentGeo.countryCode ? [state.currentGeo.countryCode] : []),
+      ...Object.keys(state.store.countries || {}),
+    ]);
+    const stateCodes = new Set([...TOP_INDIA_STATE_CODES]);
+    if (state.currentGeo && state.currentGeo.stateName) {
+      const m = getStateMetaByName(state.currentGeo.stateName);
+      if (m) stateCodes.add(m.code);
+    }
+    Object.keys(state.store.indiaStates || {}).forEach((stName) => {
+      const m = getStateMetaByName(stName);
+      if (m) stateCodes.add(m.code);
+    });
+
+    const keyHandlers = new Map();
+    keyHandlers.set('total', (val) => {
+      if (val >= 0) {
+        state.store.totalUniqueVisitors = val;
+        state.apiSynced = true;
+      }
+    });
+
+    countryCodes.forEach((cc) => {
+      const norm = normalizeCountryCode(cc);
+      if (norm === 'ZZ') return;
+      keyHandlers.set('c_' + norm.toLowerCase(), (val) => {
+        if (val > 0) {
+          state.store.countries[norm] = { code: norm, name: getCountryName(norm), count: val };
+        }
+      });
+    });
+
+    stateCodes.forEach((sc) => {
+      const meta = INDIA_STATES.find((s) => s.code === sc);
+      if (!meta) return;
+      keyHandlers.set('s_' + sc.toLowerCase(), (val) => {
+        if (val > 0) {
+          const prevDists = (state.store.indiaStates[meta.name] && state.store.indiaStates[meta.name].districts) || {};
+          state.store.indiaStates[meta.name] = { count: val, districts: { ...prevDists } };
+        }
+      });
+    });
+
+    await fetchAbacusInfoBatch(Array.from(keyHandlers.keys()), (key, val) => {
+      const handler = keyHandlers.get(key);
+      if (handler) handler(val);
+    });
+
+    writeLocalStore(state.store);
+    renderAllUI();
+
+    const activeStates = Object.entries(state.store.indiaStates || {})
+      .filter(([, info]) => (Number(info && info.count) || 0) > 0)
+      .sort((a, b) => (b[1].count || 0) - (a[1].count || 0))
+      .slice(0, 3);
+    for (const [stName] of activeStates) {
+      await syncStateDistricts(stName);
+    }
+  }
+
   function openModal() {
     if (!modal) return;
     modal.classList.remove('hidden');
@@ -1997,6 +2246,7 @@ function initVisitorGeography() {
       modal.classList.add('is-open');
     });
     renderAllUI();
+    syncGlobalSummary(false);
   }
 
   function closeModal() {
@@ -2022,12 +2272,18 @@ function initVisitorGeography() {
   });
 
   if (tabCountriesBtn) tabCountriesBtn.addEventListener('click', () => switchTab('countries'));
-  if (tabIndiaBtn) tabIndiaBtn.addEventListener('click', () => switchTab('india'));
+  if (tabIndiaBtn) {
+    tabIndiaBtn.addEventListener('click', () => {
+      switchTab('india');
+      if (state.showAllStates) syncAllIndiaStates();
+    });
+  }
   if (openAllStatesBtn) {
     openAllStatesBtn.addEventListener('click', () => {
       state.showAllStates = true;
       switchTab('india');
       renderAllUI();
+      syncAllIndiaStates();
     });
   }
   if (mapModeBtn) {
@@ -2053,6 +2309,7 @@ function initVisitorGeography() {
   if (indiaSearchInput) {
     indiaSearchInput.addEventListener('input', (e) => {
       state.searchQuery = e.target.value || '';
+      if (state.searchQuery.trim().length > 0) syncAllIndiaStates();
       renderIndiaStatesList();
     });
   }
@@ -2060,6 +2317,7 @@ function initVisitorGeography() {
   if (indiaScopeBtn) {
     indiaScopeBtn.addEventListener('click', () => {
       state.showAllStates = !state.showAllStates;
+      if (state.showAllStates) syncAllIndiaStates();
       renderAllUI();
     });
   }
@@ -2078,6 +2336,7 @@ function initVisitorGeography() {
       } else {
         state.expandedStates.delete('__collapsed__' + stName);
         state.expandedStates.add(stName);
+        syncStateDistricts(stName);
       }
       renderIndiaStatesList();
     });
@@ -2090,8 +2349,7 @@ function initVisitorGeography() {
       gpsBtn.textContent = 'Locating...';
       try {
         const gpsGeo = await fetchExactGpsGeo();
-        const visitorId = getOrCreateVisitorId();
-        const res = recordVisitLocally(visitorId, gpsGeo, true);
+        const res = recordVisitLocally(gpsGeo, true);
         state.store = res.store;
         state.currentGeo = res.currentGeo;
         try {
@@ -2100,6 +2358,32 @@ function initVisitorGeography() {
           // ignore
         }
         renderAllUI();
+
+        const { countryKey, stateKey, districtKey } = getGeoCounterKeys(
+          res.currentGeo.countryCode,
+          res.currentGeo.stateName,
+          res.currentGeo.districtName
+        );
+        if (res.changeKind === 'new' || res.changeKind === 'relocated') {
+          const prevKeys = res.prevSession
+            ? getGeoCounterKeys(res.prevSession.countryCode, res.prevSession.stateName, res.prevSession.districtName)
+            : {};
+          const [totalVal, countryVal, stateVal, districtVal] = await Promise.all([
+            res.changeKind === 'new' ? fetchAbacusHit('total') : fetchAbacusInfo('total'),
+            res.changeKind === 'new' || countryKey !== prevKeys.countryKey ? fetchAbacusHit(countryKey) : fetchAbacusInfo(countryKey),
+            stateKey && (res.changeKind === 'new' || stateKey !== prevKeys.stateKey) ? fetchAbacusHit(stateKey) : fetchAbacusInfo(stateKey),
+            districtKey && (res.changeKind === 'new' || districtKey !== prevKeys.districtKey) ? fetchAbacusHit(districtKey) : fetchAbacusInfo(districtKey),
+          ]);
+          applyRemoteLocationValue(state.store, state.currentGeo, {
+            total: totalVal,
+            country: countryVal,
+            state: stateVal,
+            district: districtVal,
+          });
+          if (typeof totalVal === 'number') state.apiSynced = true;
+          writeLocalStore(state.store);
+          renderAllUI();
+        }
         gpsBtn.textContent = 'GPS Verified';
       } catch (_) {
         gpsBtn.textContent = 'Blocked / Retry';
@@ -2112,42 +2396,44 @@ function initVisitorGeography() {
     });
   }
 
-  // Record visit asynchronously (works across all pages + optionally syncs with backend if configured)
+  // Record visit asynchronously (updates per visit & syncs with serverless Abacus counters — no custom backend needed)
   (async function trackVisit() {
-    const visitorId = getOrCreateVisitorId();
-    const apiEndpoint =
-      window.PORTFOLIO_VISITOR_API_URL ||
-      (document.body && document.body.getAttribute('data-visitor-api')) ||
-      '';
-
     const geo = await fetchLiveGeo();
     if (geo) {
-      const res = recordVisitLocally(visitorId, geo, true);
+      const res = recordVisitLocally(geo, false);
       state.store = res.store;
       state.currentGeo = res.currentGeo;
-    }
+      renderAllUI();
 
-    if (apiEndpoint) {
-      try {
-        const res = await fetch(apiEndpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'x-client-visitor-id': visitorId },
-          body: JSON.stringify({ visitorId, geo }),
+      const { countryKey, stateKey, districtKey } = getGeoCounterKeys(
+        res.currentGeo.countryCode,
+        res.currentGeo.stateName,
+        res.currentGeo.districtName
+      );
+      const reader = res.changeKind === 'new' ? fetchAbacusHit : fetchAbacusInfo;
+      const [totalVal, countryVal, stateVal, districtVal] = await Promise.all([
+        reader('total'),
+        reader(countryKey),
+        reader(stateKey),
+        reader(districtKey),
+      ]);
+
+      if (typeof totalVal === 'number') {
+        applyRemoteLocationValue(state.store, state.currentGeo, {
+          total: totalVal,
+          country: countryVal,
+          state: stateVal,
+          district: districtVal,
         });
-        if (res.ok) {
-          const payload = await res.json();
-          if (payload && typeof payload.totalUniqueVisitors === 'number') {
-            state.store = {
-              ...state.store,
-              totalUniqueVisitors: payload.totalUniqueVisitors,
-              countries: payload.countries || state.store.countries,
-              indiaStates: payload.indiaStates || state.store.indiaStates,
-            };
-            state.apiSynced = true;
-          }
-        }
-      } catch (_) {
-        // fallback cleanly to local GeoIP store
+        state.apiSynced = true;
+        writeLocalStore(state.store);
+      }
+    } else {
+      const totalVal = await fetchAbacusInfo('total');
+      if (typeof totalVal === 'number') {
+        state.store.totalUniqueVisitors = totalVal;
+        state.apiSynced = true;
+        writeLocalStore(state.store);
       }
     }
 
